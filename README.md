@@ -9,6 +9,7 @@ The root folder is the server folder.  It contains the client folder because the
 > cd ..
 > npm start
 ```
+The client is now served by the server and can be accessed at localhost:3000.
 
 ## Running the client separately:
 ```
