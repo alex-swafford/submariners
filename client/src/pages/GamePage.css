@@ -1,0 +1,53 @@
+.GamePage {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: 92vh 8vh;
+    background-color: #232323;
+    color: #fff
+}
+
+.SubWindow {
+    border-radius: 5px;
+    background-color: #343434;
+    
+}
+
+.Scoreboard {
+    grid-row: 1 / 3;
+    grid-column: 1;
+    margin: 2px;
+
+}
+
+.MainView {
+    grid-row: 1;
+    grid-column: 2;
+    margin: 2px;
+}
+
+.DataPanel {
+    grid-row: 1 / 3;
+    grid-column: 3;
+    margin: 2px;
+}
+
+.ControlBar {
+    grid-row: 2;
+    grid-column: 2 / 3;
+    margin: 2px;
+    padding: 10px;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.Button {
+    margin-left: 2px;
+    margin-right: 2px;
+    border-radius: 20px;
+}
+
+.Canvas {
+    border: 1px solid aqua
+}
