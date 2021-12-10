@@ -1,8 +1,12 @@
-const express = require("express")
+const express = require('express')
+const path = require('path')
+
 const app = express()
 
-app.get('/', (request, response) => {
-    response.send("Submariners Server")
+app.use(express.static(path.resolve(__dirname, 'client/build')))
+
+app.get('*', (request, response) => {
+    response.sendFile(path.resolve(__dirname, 'client/build', 'index.html'))
 })
 
 app.listen(3000, () => {
