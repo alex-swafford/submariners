@@ -25,10 +25,10 @@ function GamePage(props) {
             console.log("Player x:", player.x, "Player y:", player.y, "Player speed:", player.speed)
             let newPlayerAngle = player.angleRadians
             if(isAPressed && !isDPressed) {
-                newPlayerAngle -= Math.PI / 600 * elapsedTime
+                newPlayerAngle -= Math.PI / 1200 * elapsedTime
             }
             else if(isDPressed && !isAPressed) {
-                newPlayerAngle += Math.PI / 600 * elapsedTime
+                newPlayerAngle += Math.PI / 1200 * elapsedTime
             }
             if(isWPressed && !isSPressed && player.speed < .3) {
                 player.speed += .001 * elapsedTime
