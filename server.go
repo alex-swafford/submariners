@@ -13,5 +13,5 @@ func main() {
 
 	http.Handle("/", fileServer)
 
-	log.Fatal(http.ListenAndServe(":3001", nil))
+	log.Fatal(http.ListenAndServe(":3000", nil))
 }
