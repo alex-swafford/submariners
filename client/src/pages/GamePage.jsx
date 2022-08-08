@@ -22,7 +22,7 @@ function GamePage(props) {
             let elapsedTime = nowTime - props.gameState.previousAnimationTime
             player.x += player.speed * Math.cos(player.angleRadians) * elapsedTime
             player.y += player.speed * Math.sin(player.angleRadians) * elapsedTime
-            console.log("Player x:", player.x, "Player y:", player.y, "Player speed:", player.speed)
+            // console.log("Player x:", player.x, "Player y:", player.y, "Player speed:", player.speed)
             let newPlayerAngle = player.angleRadians
             if(isAPressed && !isDPressed) {
                 newPlayerAngle -= Math.PI / 1200 * elapsedTime
@@ -54,7 +54,8 @@ function GamePage(props) {
                             x: player.x,
                             y: player.y,
                             angleRadians: newPlayerAngle,
-                            speed: player.speed
+                            speed: player.speed,
+                            name: player.name
                         }
                     ],
             previousAnimationTime: nowTime
@@ -98,18 +99,14 @@ function GamePage(props) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow>
-                        <TableCell>Julius Caesar</TableCell>
-                        <TableCell>-44</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>Napolean Bonaparte</TableCell>
-                        <TableCell>1821</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>Douglas MacArthur</TableCell>
-                        <TableCell>1964</TableCell>
-                    </TableRow>
+                    {
+                    
+                    props.gameState.players.map((player) => {
+                        return <TableRow key={props.gameState.players.indexOf(player)}>
+                            <TableCell>{player.name}</TableCell>
+                            <TableCell>{player.name.length}</TableCell>
+                        </TableRow>
+                    })}
                 </TableBody>
                 
             </Table>
@@ -121,7 +118,7 @@ function GamePage(props) {
         <div className='DataPanel SubWindow'>Data Panel</div>
             
         <div className='ControlBar SubWindow'>
-            {props.playerName}'s Submarine
+            {props.gameState.players[0].name}'s Submarine
             <div className='right-align'>
                 <Button variant='contained' color='primary' className='Button'>ping</Button>
                 <Button variant='contained' color='primary' className='Button'>grab</Button>
