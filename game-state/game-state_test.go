@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestPlayerConnect(t *testing.T) {
+func TestPlayerConnectAndDisconnect(t *testing.T) {
 	gameState := NewGameState()
 	message := NewMessage("JamesCameron", MessageType_Connect, map[string]any{})
 
@@ -30,4 +30,18 @@ func TestPlayerConnect(t *testing.T) {
 	assert.NotNil(t, result)
 	assert.Equal(t, "player names cannot be empty", result.Error())
 	assert.Equal(t, 2, len(gameState.Players))
+
+	message = NewMessage("NotAPlayerWhoIsConnected", MessageType_Disconnect, map[string]any{})
+	result = gameState.processMessage(message)
+	assert.Equal(t, result.Error(), "a player who is not connected cannot disconnect")
+	assert.Equal(t, 2, len(gameState.Players))
+
+	message = NewMessage("JamesCameron", MessageType_Disconnect, map[string]any{})
+	result = gameState.processMessage(message)
+	assert.Nil(t, result)
+	assert.Equal(t, 1, len(gameState.Players))
+	assert.Equal(t, "JackRyanJr", gameState.Players[0].name)
+	assert.Equal(t, 1, gameState.Players[0].id)
+	// Note that the other players' ID fields remain the same when a player disconnects.
+	// That player's ID will not be reassigned.
 }
