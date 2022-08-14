@@ -25,6 +25,10 @@ func TestPlayerConnectAndDisconnect(t *testing.T) {
 	assert.Equal(t, 1, gameState.Players[1].id)
 	assert.Equal(t, "JackRyanJr", gameState.Players[1].name)
 
+	result = gameState.processMessage(message)
+	assert.NotNil(t, result)
+	assert.Equal(t, result.Error(), "a player with that name is already connected")
+
 	message = NewMessage("", MessageType_Connect, map[string]any{})
 	result = gameState.processMessage(message)
 	assert.NotNil(t, result)
