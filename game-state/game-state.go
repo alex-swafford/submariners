@@ -17,13 +17,13 @@ func (gameState *GameState) processMessage(message Message) error {
 				NewPlayer(message.playerName, gameState.idGenerator.generateID()))
 			return nil
 		}
-		return errors.New("Player names cannot be empty")
+		return errors.New("player names cannot be empty")
 	} else if message.messageType == MessageType_Disconnect {
-		return errors.New("Not Implemented")
+		return errors.New("not implemented")
 	} else if message.messageType == MessageType_KeyPressChange {
-		return errors.New("Not Implemented")
+		return errors.New("not implemented")
 	} else {
-		return errors.New("Invalid message type")
+		return errors.New("invalid message type")
 	}
 }
 
