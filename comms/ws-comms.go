@@ -42,5 +42,3 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 
 	reader(conn)
 }
-
-q
