@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	comms.InitializeGameState()
 	fileServer := http.FileServer(http.Dir("./client/build"))
 	http.Handle("/", fileServer)
 	http.HandleFunc("/ws", comms.SocketHandler)

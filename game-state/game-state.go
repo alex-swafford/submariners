@@ -10,23 +10,23 @@ type GameState struct {
 	// TODO add torpedoes, treasure, etc.
 }
 
-func (gameState *GameState) processMessage(message Message) error {
-	if message.messageType == MessageType_Connect {
-		if message.playerName != "" {
+func (gameState *GameState) ProcessMessage(message Message) error {
+	if message.MessageType == MessageType_Connect {
+		if message.PlayerName != "" {
 			for _, player := range gameState.Players {
-				if player.name == message.playerName {
+				if player.Name == message.PlayerName {
 					return errors.New("a player with that name is already connected")
 				}
 			}
 			gameState.Players = append(gameState.Players,
-				NewPlayer(message.playerName, gameState.idGenerator.generateID()))
+				NewPlayer(message.PlayerName, gameState.idGenerator.generateID()))
 			return nil
 		}
 		return errors.New("player names cannot be empty")
-	} else if message.messageType == MessageType_Disconnect {
+	} else if message.MessageType == MessageType_Disconnect {
 		indexToRemove := -1
 		for index, player := range gameState.Players {
-			if player.name == message.playerName {
+			if player.Name == message.PlayerName {
 				indexToRemove = index
 			}
 		}
@@ -37,7 +37,7 @@ func (gameState *GameState) processMessage(message Message) error {
 			return errors.New("a player who is not connected cannot disconnect")
 		}
 
-	} else if message.messageType == MessageType_KeyPressChange {
+	} else if message.MessageType == MessageType_KeyPressChange {
 		return errors.New("not implemented")
 	} else {
 		return errors.New("invalid message type")

@@ -1,27 +1,51 @@
 package comms
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gorilla/websocket"
+
+	game_state "submariners/server/game-state"
 )
+
+var gameState *game_state.GameState
+
+// Must be called before processing messages.
+func InitializeGameState() {
+	gameState = game_state.NewGameState()
+}
 
 func reader(conn *websocket.Conn) {
 	for {
 		// read in a message
-		messageType, p, err := conn.ReadMessage()
+		messageType, jsonBytes, err := conn.ReadMessage()
 		if err != nil {
 			log.Println(err)
 			return
 		}
-		// print out that message for clarity
-		fmt.Println(string(p))
 
-		if err := conn.WriteMessage(messageType, p); err != nil {
-			log.Println(err)
-			return
+		fmt.Print("Received ")
+		fmt.Println(string(jsonBytes))
+		messageReceived := new(game_state.Message)
+		err = json.Unmarshal(jsonBytes, messageReceived)
+		if err != nil {
+			log.Println("Failed to unmarshal JSON.")
+		}
+
+		sendReply, reply := ProcessMessage(*messageReceived, gameState)
+
+		if sendReply {
+			bytes, err := json.Marshal(reply)
+			if err != nil {
+				bytes = []byte("Could not marshal: " + err.Error())
+			}
+			if err := conn.WriteMessage(messageType, bytes); err != nil {
+				log.Println(err)
+				return
+			}
 		}
 
 	}

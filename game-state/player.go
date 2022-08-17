@@ -1,7 +1,7 @@
 package game_state
 
 type Player struct {
-	name string
+	Name string `json:"name"`
 	id   int
 
 	// TODO add position, speed, etc
@@ -10,7 +10,7 @@ type Player struct {
 func NewPlayer(name string, id int) Player {
 	returnVal := new(Player)
 	returnVal.id = id
-	returnVal.name = name
+	returnVal.Name = name
 
 	return *returnVal
 }
