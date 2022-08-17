@@ -9,7 +9,7 @@ Connect message format:
 ```
 {
     "messageType": "connect", 
-    "player": "<username>"
+    "playerName": "<username>"
     "data": {}
 }
 ```
