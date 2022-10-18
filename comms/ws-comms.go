@@ -33,12 +33,14 @@ func reader(conn *websocket.Conn) {
 		err = json.Unmarshal(jsonBytes, messageReceived)
 		if err != nil {
 			log.Println("Failed to unmarshal JSON.")
+			continue
 		}
 
 		sendReply, reply := ProcessMessage(*messageReceived, gameState)
 
 		if sendReply {
 			bytes, err := json.Marshal(reply)
+			fmt.Println("sending: " + string(bytes))
 			if err != nil {
 				bytes = []byte("Could not marshal: " + err.Error())
 			}
@@ -54,6 +56,10 @@ func reader(conn *websocket.Conn) {
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool {
+		// TODO Do not move to production without a better origin checker.
+		return true
+	},
 }
 
 func SocketHandler(w http.ResponseWriter, r *http.Request) {

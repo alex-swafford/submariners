@@ -48,18 +48,18 @@ function GamePage(props) {
                     player.speed = 0
                 }
             }
-            props.gameStateSetter({
-            players: [ // Note: this will break as soon as another player is added.
-                        {
-                            x: player.x,
-                            y: player.y,
-                            angleRadians: newPlayerAngle,
-                            speed: player.speed,
-                            name: player.name
-                        }
-                    ],
-            previousAnimationTime: nowTime
-        })}, 12)
+            // props.gameStateSetter({
+            // players: [ // Note: this will break as soon as another player is added.
+            //             {
+            //                 x: player.x,
+            //                 y: player.y,
+            //                 angleRadians: newPlayerAngle,
+            //                 speed: player.speed,
+            //                 name: player.name
+            //             }
+            //         ],
+            // previousAnimationTime: nowTime})
+        }, 12)
         return () => {clearInterval(interval)}
     }, [props, isWPressed, isAPressed, isSPressed, isDPressed])
     const canvasRef = useRef()
@@ -100,13 +100,13 @@ function GamePage(props) {
                 </TableHead>
                 <TableBody>
                     {
-                    
-                    props.gameState.players.map((player) => {
-                        return <TableRow key={props.gameState.players.indexOf(player)}>
+                    props.gameState.players.map((player) => 
+                        // TODO better key
+                        <TableRow key={props.gameState.players.indexOf(player)}> 
                             <TableCell>{player.name}</TableCell>
                             <TableCell>{player.name.length}</TableCell>
-                        </TableRow>
-                    })}
+                        </TableRow>)
+                    }
                 </TableBody>
                 
             </Table>
